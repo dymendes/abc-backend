@@ -26,7 +26,7 @@ class StudentsController {
       age: req.body.responsibleAge
     }
 
-    const responsibleExists = req.body.responsibleExists
+    const responsibleExistsCheck = req.body.responsibleExistsCheck
 
     const responsibleFindByEmail = await ResponsiblesModel.findByEmail(req.body.responsibleEmail)
     
@@ -36,21 +36,21 @@ class StudentsController {
       return res.status(400).json({ message: "Student data is invalid!" })
     }
 
-    if(!(validate.name(req.body.responsibleFirstName)) || !(validate.name(req.body.responsibleLastName)) || !(validate.email(req.body.responsibleEmail)) || !(validate.age(req.body.responsibleAge))) {
+    if(!(validate.name(req.body.responsibleFirstName)) || !(validate.name(req.body.responsibleLastName)) || !(validate.email(req.body.responsibleEmail)) || !(validate.age(req.body.responsibleAge)) || responsibleExistsCheck === undefined) {
       return res.status(400).json({ message: "Responsible data is invalid!" })
     }
 
     if(studentFindByEmail !== null) return res.status(400).json({ message: "There is already a student with this email!" })
 
-    if(responsibleExists === "true") {
+    if(responsibleExistsCheck === "true") {
       if(responsibleFindByEmail === null) {
         return res.status(400).json({ message: "This person is not registered!" })
       } else {
-        await AuthenticationModel.signup({ student, responsible: responsibleFindByEmail }, responsibleExists )
+        await AuthenticationModel.signup({ student, responsible: responsibleFindByEmail }, responsibleExistsCheck )
       }
     } else {
       if(responsibleFindByEmail === null) {
-        await AuthenticationModel.signup({ student, responsible }, responsibleExists )
+        await AuthenticationModel.signup({ student, responsible }, responsibleExistsCheck )
       } else {
         return res.status(400).json({ message: "This person is already registered!" })
       }
