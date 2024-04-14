@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 
 import { authenticationRouter } from "./routes/authentication.js"
+import { studentRouter } from "./routes/student.js"
 
 dotenv.config()
 
@@ -14,3 +15,4 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use("/authentication", authenticationRouter)
+app.use("/student", studentRouter)
