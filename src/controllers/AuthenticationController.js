@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
 
 import AuthenticationModel from "../models/Authentication.js"
 import ResponsiblesModel from "../models/Responsibles.js"
@@ -57,6 +58,29 @@ class StudentsController {
     }
 
     return res.status(200).json({ message: "User registered successfully!" })
+  }
+
+  async signin(req, res) {
+    const { studentEmail, studentPassword } = req.body
+
+    const studentFindByEmail = await StudentsModel.findByEmail(studentEmail)
+
+    if(studentFindByEmail === null) return res.status(403).json({ message: "There is already a student with this email!" })
+
+    const studentPasswordCompare = await bcrypt.compare(studentPassword, studentFindByEmail.password)
+
+    if(!studentPasswordCompare) return res.status(403).json({ message: "Incorrect password!" })
+
+    const token = jwt.sign({ 
+      id: studentFindByEmail._id,
+      firstName: studentFindByEmail.firstName,
+      lastName: studentFindByEmail.lastName,
+      email: studentFindByEmail.email,
+      age: studentFindByEmail.age,
+      registration: studentFindByEmail.registration
+    }, process.env.JWT_SECRET, { expiresIn: "24h" })
+
+    return res.status(200).json({ token, message: "User successfully authenticated!" })
   }
 }
 
