@@ -20,6 +20,14 @@ class SeasonsModel {
             console.log(`Failed to fetch all seasons: ${error}`)
         }
     }
+
+    async findById(id) {
+        try {
+            return await seasons.findById(id)
+        } catch (error) {
+            return undefined
+        }
+    }
 }
   
 export default new SeasonsModel

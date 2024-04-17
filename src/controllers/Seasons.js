@@ -20,6 +20,16 @@ class SeasonController {
 
         res.status(200).json({ seasons, message: "All seasons searched successfully!" })
     }
+
+    async findById(req, res) {
+        const { id } = req.params
+
+        const season = await SeasonModel.findById(id)
+
+        if(season === undefined) return res.status(400).json({ message: "This season doesn't exist!" })
+
+        res.status(200).json({ season, message: "Season successfully searched for ID!" })
+    }
 }
 
 export default new SeasonController
