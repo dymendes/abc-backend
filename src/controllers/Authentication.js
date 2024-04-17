@@ -5,7 +5,7 @@ import AuthenticationModel from "../models/Authentication.js"
 import ResponsiblesModel from "../models/Responsibles.js"
 import StudentsModel from "../models/Students.js"
 
-import { validate } from "./UserDataValidate.js"
+import { validate } from "./validate.js"
 
 class StudentsController {
   async signup(req, res) {

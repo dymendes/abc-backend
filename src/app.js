@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 
 import { authenticationRouter } from "./routes/authentication.js"
 import { studentRouter } from "./routes/student.js"
+import { seasonRouter } from "./routes/seasons.js"
 
 dotenv.config()
 
@@ -16,3 +17,4 @@ app.use(express.json())
 
 app.use("/authentication", authenticationRouter)
 app.use("/student", studentRouter)
+app.use("/season", seasonRouter)

@@ -1,6 +1,6 @@
 import express from "express"
 
-import AuthenticationController from "../controllers/AuthenticationController.js"
+import AuthenticationController from "../controllers/Authentication.js"
 import { authentication } from "../middlewares/authentication.js"
 
 export const authenticationRouter = express.Router()
