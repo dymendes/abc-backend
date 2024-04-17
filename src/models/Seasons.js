@@ -28,6 +28,22 @@ class SeasonsModel {
             return undefined
         }
     }
+
+    async update(id, data) {
+        try {
+            return await seasons.findByIdAndUpdate(id, data)
+        } catch (error) {
+            return undefined
+        }
+    }
+
+    async delete(id) {
+        try {
+            return await seasons.findByIdAndDelete(id)
+        } catch (error) {
+            return undefined
+        }
+    }
 }
   
 export default new SeasonsModel
