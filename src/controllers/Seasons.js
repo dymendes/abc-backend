@@ -1,12 +1,12 @@
 import SeasonModel from "../models/Seasons.js"
 
-import Validate from "./Validate.js"
+import ValidateController from "./Validate.js"
 
 class SeasonController {
     async create(req, res) {
         const { title, description, theme } = req.body
 
-        if(!(Validate.name(title)) ||  !(Validate.name(description)) || !(Validate.name(theme))) {
+        if(!(ValidateController.name(title)) ||  !(ValidateController.name(description)) || !(ValidateController.name(theme))) {
             return res.status(400).json({ message: "Invalid season data!" })
         }
 
@@ -36,7 +36,7 @@ class SeasonController {
 
         const { title, description, theme } = req.body
 
-        if(!(Validate.name(title)) ||  !(Validate.name(description)) || !(Validate.name(theme))) {
+        if(!(ValidateController.name(title)) ||  !(ValidateController.name(description)) || !(ValidateController.name(theme))) {
             return res.status(400).json({ message: "Invalid season data!" })
         }
 

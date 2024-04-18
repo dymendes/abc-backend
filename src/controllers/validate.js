@@ -1,4 +1,4 @@
-class Validate {
+class ValidateController {
   name(value) {
     if(value === undefined) {
       return false
@@ -40,4 +40,4 @@ class Validate {
   }
 }
 
-export default new Validate
+export default new ValidateController
