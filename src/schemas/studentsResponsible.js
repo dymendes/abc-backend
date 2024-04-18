@@ -1,6 +1,6 @@
 import mongoose from "mongoose"
 
-const students_responsibles = new mongoose.Schema({
+const studentsResponsibles = new mongoose.Schema({
   student_id: {
     type: mongoose.Types.ObjectId,
     require: true
@@ -11,4 +11,4 @@ const students_responsibles = new mongoose.Schema({
   }
 })
 
-export default students_responsibles
+export default studentsResponsibles

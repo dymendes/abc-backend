@@ -55,7 +55,6 @@ class LevelController {
         if(level === undefined) return res.status(400).json({ message: "This level doesn't exist!" })
 
         res.status(200).json({ message: "Level deleted successfully!" })
-
     }
 }
 
