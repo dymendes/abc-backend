@@ -26,5 +26,12 @@ export const validate = {
     } else {
       return true
     }
+  },
+  number(value) {
+    if(value === undefined || !((/^[0-9]+$/).test(value))) {
+      return false
+    } else {
+      return true
+    }
   }
 }
