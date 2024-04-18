@@ -5,9 +5,9 @@ import AuthenticationModel from "../models/Authentication.js"
 import ResponsiblesModel from "../models/Responsibles.js"
 import StudentsModel from "../models/Students.js"
 
-import { validate } from "./validate.js"
+import Validate from "./Validate.js"
 
-class StudentsController {
+class AuthenticationController {
   async signup(req, res) {
     const salt = await bcrypt.genSalt(10)
     const hash = await bcrypt.hash(req.body.studentPassword, salt)
@@ -33,11 +33,11 @@ class StudentsController {
     
     const studentFindByEmail = await StudentsModel.findByEmail(req.body.studentEmail)
 
-    if(!(validate.name(req.body.studentFirstName)) || !(validate.name(req.body.studentLastName)) || !(validate.email(req.body.studentEmail)) || !(validate.password(req.body.studentPassword)) || !(validate.age(req.body.studentAge))) {
+    if(!(Validate.name(req.body.studentFirstName)) || !(Validate.name(req.body.studentLastName)) || !(Validate.email(req.body.studentEmail)) || !(Validate.password(req.body.studentPassword)) || !(Validate.age(req.body.studentAge))) {
       return res.status(400).json({ message: "Student data is invalid!" })
     }
 
-    if(!(validate.name(req.body.responsibleFirstName)) || !(validate.name(req.body.responsibleLastName)) || !(validate.email(req.body.responsibleEmail)) || !(validate.age(req.body.responsibleAge)) || responsibleExistsCheck === undefined) {
+    if(!(Validate.name(req.body.responsibleFirstName)) || !(Validate.name(req.body.responsibleLastName)) || !(Validate.email(req.body.responsibleEmail)) || !(Validate.age(req.body.responsibleAge)) || responsibleExistsCheck === undefined) {
       return res.status(400).json({ message: "Responsible data is invalid!" })
     }
 
@@ -84,4 +84,4 @@ class StudentsController {
   }
 }
 
-export default new StudentsController
+export default new AuthenticationController

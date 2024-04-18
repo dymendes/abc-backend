@@ -1,12 +1,12 @@
 import LevelsModel from "../models/Levels.js"
 
-import { validate } from "./validate.js"
+import Validate from "./Validate.js"
 
 class LevelController {
     async create(req, res) {
         const { title, description, difficulty, minigame, reward } = req.body
 
-        if(!(validate.name(title)) ||  !(validate.name(description)) || !(validate.number(difficulty)) || !(validate.name(minigame)) || !(validate.number(reward))) {
+        if(!(Validate.name(title)) ||  !(Validate.name(description)) || !(Validate.number(difficulty)) || !(Validate.name(minigame)) || !(Validate.number(reward))) {
             return res.status(400).json({ message: "Invalid level data!" })
         }
 
@@ -36,7 +36,7 @@ class LevelController {
 
         const { title, description, difficulty, minigame, reward } = req.body
 
-        if(!(validate.name(title)) ||  !(validate.name(description)) || !(validate.number(difficulty)) || !(validate.name(minigame)) || !(validate.number(reward))) {
+        if(!(Validate.name(title)) ||  !(Validate.name(description)) || !(Validate.number(difficulty)) || !(Validate.name(minigame)) || !(Validate.number(reward))) {
             return res.status(400).json({ message: "Invalid level data!" })
         }
 
