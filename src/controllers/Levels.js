@@ -1,16 +1,30 @@
 import LevelsModel from "../models/Levels.js"
+import SeasonsModel from "../models/Seasons.js"
 
 import ValidateController from "./Validate.js"
 
 class LevelController {
     async create(req, res) {
-        const { title, description, difficulty, minigame, reward } = req.body
+        const { title, description, difficulty, minigame, reward, season_id } = req.body
 
         if(!(ValidateController.name(title)) ||  !(ValidateController.name(description)) || !(ValidateController.number(difficulty)) || !(ValidateController.name(minigame)) || !(ValidateController.number(reward))) {
             return res.status(400).json({ message: "Invalid level data!" })
         }
 
-        await LevelsModel.create({ title, description, difficulty, minigame, reward })
+        const season = await SeasonsModel.findById(season_id)
+
+        if(season === undefined) return res.status(400).json({ message: "This season doesn't exist!" })
+
+        await LevelsModel.create({ 
+            season_id: season_id,
+            level: {
+                title, 
+                description, 
+                difficulty, 
+                minigame, 
+                reward 
+            }
+        })
 
         res.status(200).json({ message: "Level created successfully!" })
     }

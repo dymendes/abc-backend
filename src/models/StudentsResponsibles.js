@@ -9,7 +9,7 @@ class StudentsResponsiblesModel {
       try {
         await new studentsResponsibles({ student_id, responsible_id }).save()
       } catch (error) {
-        console.log(`Failed to create a season: ${error}`)
+        console.log(`Failure to create a relationship between student and responsible: ${error}`)
       }
     }
 
