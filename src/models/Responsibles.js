@@ -5,6 +5,14 @@ import ResponsiblesSchema from "../schemas/responsibles.js"
 const responsibles = mongoose.model("responsibles", ResponsiblesSchema)
 
 class ResponsiblesModel {
+    async findAll() {
+      try {
+        return await responsibles.find()
+      } catch (error) {
+        console.log(`Failure to search for all those responsible: ${error}`)
+      }
+    }
+
     async findByEmail(email) {
       try {
         return await responsibles.findOne({ email })

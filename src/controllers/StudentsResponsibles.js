@@ -4,7 +4,7 @@ import Students from "../models/Students.js"
 class StudentsResponsiblesController {
     async findStudentsByResponsible(req, res) {
         const { id } = req.params
-
+ 
         const relationships = await StudentsResponsiblesModel.findStudentsByResponsible(id)
 
         const studentsSearch = async () => {
@@ -21,7 +21,7 @@ class StudentsResponsiblesController {
 
         const students = await studentsSearch()
 
-        res.status(200).json({ students, message: "Users searched based on a responsible person successfully!" })
+        res.status(200).json({ students, message: "Students searched based on a responsible person successfully!" })
     }
 }
 
