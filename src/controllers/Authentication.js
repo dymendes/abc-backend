@@ -17,7 +17,8 @@ class AuthenticationController {
       lastName: req.body.studentLastName,
       email: req.body.studentEmail,
       password: hash,
-      age: req.body.studentAge
+      age: req.body.studentAge,
+      responsible_id: ""
     }
 
     const responsible = {
@@ -47,6 +48,8 @@ class AuthenticationController {
       if(responsibleFindByEmail === null) {
         return res.status(400).json({ message: "This person is not registered!" })
       } else {
+        student.responsible_id = responsibleFindByEmail._id
+
         await AuthenticationModel.signup({ student, responsible: responsibleFindByEmail }, responsibleExistsCheck )
       }
     } else {

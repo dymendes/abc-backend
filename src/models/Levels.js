@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 
 import LevelsSchema from "../schemas/levels.js"
-import seasonsLevelModel from "../models/SeasonsLevels.js"
 
 const levels = mongoose.model("levels", LevelsSchema)
 
@@ -9,8 +8,6 @@ class LevelsModel {
     async create(data) {
       try {
         const level = await levels(data.level).save()
-
-        await seasonsLevelModel.create(data.season_id, level._id)
       } catch (error) {
         console.log(`Failed to create a level: ${error}`)
       }

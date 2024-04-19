@@ -5,6 +5,14 @@ import StudentsSchema from "../schemas/students.js"
 const students = mongoose.model("students", StudentsSchema)
 
 class StudentsModel {
+  async create(data) {
+    try {
+      return await students(data).save()
+    } catch (error) {
+      console.log(`Failed to create a student: ${error}`)
+    }
+  }
+
   async findById(id) {
     try {
       return await students.findById(id)

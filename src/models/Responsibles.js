@@ -5,6 +5,14 @@ import ResponsiblesSchema from "../schemas/responsibles.js"
 const responsibles = mongoose.model("responsibles", ResponsiblesSchema)
 
 class ResponsiblesModel {
+    async create(data) {
+      try {
+        return await responsibles(data).save()
+      } catch (error) {
+        console.log(`Failed to create a responsible: ${error}`)
+      }
+    }
+    
     async findAll() {
       try {
         return await responsibles.find()

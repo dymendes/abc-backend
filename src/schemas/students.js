@@ -25,6 +25,10 @@ const students = new mongoose.Schema({
     type: Date,
     default: Date.now(),
     require: true
+  },
+  responsible_id: {
+    type: mongoose.Types.ObjectId,
+    require: true
   }
 })
 

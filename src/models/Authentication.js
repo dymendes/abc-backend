@@ -1,26 +1,18 @@
-import mongoose from "mongoose"
-
-import StudentsSchema from "../schemas/students.js"
-import ResponsiblesSchema from "../schemas/responsibles.js"
-
-import StudentsResponsiblesModel from "./StudentsResponsibles.js"
-
-const students = mongoose.model("students", StudentsSchema)
-const responsibles = mongoose.model("responsibles", ResponsiblesSchema)
+import ResponsiblesModel from "../models/Responsibles.js"
+import StudentsModel from "../models/Students.js"
 
 class AuthenticationModel {
     async signup(data, responsibleExists) {
       try {
-        const student = await new students(data.student).save()
-
         if(responsibleExists === "true") {
-          return await StudentsResponsiblesModel.create(student._id, data.responsible._id)
+          return await StudentsModel.create(data.student)
         }
 
-        const responsible = await new responsibles(data.responsible).save()
-      
-        await StudentsResponsiblesModel.create(student._id, responsible._id)
+        const responsible = await ResponsiblesModel.create(data.responsible)
 
+        data.student.responsible_id = responsible._id
+
+        return await StudentsModel.create(data.student)
       } catch (error) {
         console.log(`Failed to register student: ${error}`)
       }

@@ -16,13 +16,13 @@ class LevelController {
         if(season === undefined) return res.status(400).json({ message: "This season doesn't exist!" })
 
         await LevelsModel.create({ 
-            season_id: season_id,
             level: {
                 title, 
                 description, 
                 difficulty, 
                 minigame, 
-                reward 
+                reward,
+                season_id: season_id
             }
         })
 

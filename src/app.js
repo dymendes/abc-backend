@@ -7,7 +7,6 @@ import { studentsRouter } from "./routes/students.js"
 import { responsibleRouter } from "./routes/responsibles.js"
 import { seasonRouter } from "./routes/seasons.js"
 import { levelRouter } from "./routes/levels.js"
-import { relationshipsRouter } from "./routes/relationships.js"
 
 dotenv.config()
 
@@ -25,5 +24,3 @@ app.use("/season", seasonRouter)
 
 app.use("/level", levelRouter)
 app.use("/responsibles", responsibleRouter)
-
-app.use("/relationships", relationshipsRouter)

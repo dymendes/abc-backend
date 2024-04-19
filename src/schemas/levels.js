@@ -20,6 +20,10 @@ const levels = new mongoose.Schema({
   reward: {
     type: Number,
     require: true
+  },
+  season_id: {
+    type: mongoose.Types.ObjectId,
+    require: true
   }
 })
 
