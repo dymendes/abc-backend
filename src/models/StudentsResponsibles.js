@@ -13,13 +13,21 @@ class StudentsResponsiblesModel {
       }
     }
 
-    async findStudentsByResponsible(responsible_id) {
+    async findRelationshipsOfStudentsByResponsible(responsible_id) {
         try {
             return await studentsResponsibles.find({ responsible_id })
         } catch (error) {
-            console.log(`Failure to pick up students by a responsible: ${error}`)
+            return undefined
         }
     }
+
+    async findRelationshipsOfResponsibleByStudent(student_id) {
+      try {
+          return await studentsResponsibles.find({ student_id })
+      } catch (error) {
+          return undefined
+      }
+  }
 }
   
 export default new StudentsResponsiblesModel

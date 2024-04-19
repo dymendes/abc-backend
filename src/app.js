@@ -7,7 +7,7 @@ import { studentsRouter } from "./routes/students.js"
 import { responsibleRouter } from "./routes/responsibles.js"
 import { seasonRouter } from "./routes/seasons.js"
 import { levelRouter } from "./routes/levels.js"
-import { studentsResponsiblesRouter } from "./routes/studentsResponsibles.js"
+import { relationshipsRouter } from "./routes/relationships.js"
 
 dotenv.config()
 
@@ -19,8 +19,11 @@ app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
 app.use("/authentication", authenticationRouter)
+
 app.use("/student", studentsRouter)
 app.use("/season", seasonRouter)
+
 app.use("/level", levelRouter)
-app.use("/students-responsibles", studentsResponsiblesRouter)
 app.use("/responsibles", responsibleRouter)
+
+app.use("/relationships", relationshipsRouter)

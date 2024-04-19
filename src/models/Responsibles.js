@@ -13,6 +13,14 @@ class ResponsiblesModel {
       }
     }
 
+    async findById(id) {
+      try {
+        return await responsibles.findById(id)
+      } catch (error) {
+        console.log(`Failed to search for responsible person by ID: ${error}`)
+      }
+    }
+
     async findByEmail(email) {
       try {
         return await responsibles.findOne({ email })
