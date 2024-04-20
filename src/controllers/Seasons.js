@@ -26,7 +26,7 @@ class SeasonController {
 
         const season = await SeasonModel.findById(id)
 
-        if(season === undefined) return res.status(400).json({ message: "This season doesn't exist!" })
+        if(season === undefined || season === null) return res.status(400).json({ message: "This season doesn't exist!" })
 
         res.status(200).json({ season, message: "Season successfully searched for ID!" })
     }

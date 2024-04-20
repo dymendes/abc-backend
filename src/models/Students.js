@@ -13,6 +13,14 @@ class StudentsModel {
     }
   }
 
+  async findAll() {
+    try {
+      return await students.find()
+    } catch (error) {
+      console.log(`Failure to search for all those students: ${error}`)
+    }
+  }
+
   async findById(id) {
     try {
       return await students.findById(id)
@@ -27,6 +35,22 @@ class StudentsModel {
       } catch (error) {
         console.log(`Failed to search for student person by email: ${error}`)
       }
+    }
+
+    async update(id, data) {
+      try {
+          return await students.findByIdAndUpdate(id, data)
+      } catch (error) {
+          return undefined
+      }
+    }
+
+    async delete(id) {
+        try {
+            return await students.findByIdAndDelete(id)
+        } catch (error) {
+            return undefined
+        }
     }
 }
   

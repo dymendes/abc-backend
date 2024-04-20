@@ -19,8 +19,8 @@ app.use(express.json())
 
 app.use("/authentication", authenticationRouter)
 
-app.use("/student", studentsRouter)
-app.use("/season", seasonRouter)
+app.use("/students", studentsRouter)
+app.use("/seasons", seasonRouter)
 
-app.use("/level", levelRouter)
+app.use("/levels", levelRouter)
 app.use("/responsibles", responsibleRouter)

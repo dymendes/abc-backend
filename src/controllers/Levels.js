@@ -40,7 +40,7 @@ class LevelController {
 
         const level = await LevelsModel.findById(id)
 
-        if(level === undefined) return res.status(400).json({ message: "This level doesn't exist!" })
+        if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
 
         res.status(200).json({ level, message: "Level successfully searched for ID!" })
     }

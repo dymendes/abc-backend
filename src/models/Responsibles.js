@@ -36,6 +36,22 @@ class ResponsiblesModel {
         console.log(`Failed to search for responsible person by email: ${error}`)
       }
     }
+
+    async update(id, data) {
+      try {
+          return await responsibles.findByIdAndUpdate(id, data)
+      } catch (error) {
+          return undefined
+      }
+    }
+
+    async delete(id) {
+        try {
+            return await responsibles.findByIdAndDelete(id)
+        } catch (error) {
+            return undefined
+        }
+    }
 }
   
 export default new ResponsiblesModel
