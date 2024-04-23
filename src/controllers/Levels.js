@@ -13,7 +13,15 @@ class LevelController {
 
         const season = await SeasonsModel.findById(season_id)
 
-        if(season === undefined) return res.status(400).json({ message: "This season doesn't exist!" })
+        if(season === undefined || season === null) return res.status(400).json({ message: "This season doesn't exist!" })
+
+        let lastLevelNumber = (await LevelsModel.findLast()).number
+
+        if(lastLevelNumber === undefined || lastLevelNumber === null) {
+            lastLevelNumber = 1
+        } else {
+            lastLevelNumber++
+        }
 
         await LevelsModel.create({ 
             level: {
@@ -22,6 +30,7 @@ class LevelController {
                 difficulty, 
                 minigame, 
                 reward,
+                number: lastLevelNumber,
                 season_id: season_id
             }
         })
@@ -45,14 +54,20 @@ class LevelController {
         res.status(200).json({ level, message: "Level successfully searched for ID!" })
     }
 
-    async findBySeason(req, res) {
+    async findAllBySeason(req, res) {
         const { id } = req.params
 
-        const levels = await LevelsModel.findBySeason(id)
+        const levels = await LevelsModel.findAllBySeason(id)
 
         if(levels === undefined || levels === null) return res.status(400).json({ message: "This season doesn't exist!" })
 
         res.status(200).json({ levels, message: "Level successfully searched for season!" })
+    }
+
+    async findLast(req, res) {
+        const level = await LevelsModel.findLast()
+
+        res.status(200).json({ level, message: "Last level successfully searched!" })
     }
 
     async update(req, res) {

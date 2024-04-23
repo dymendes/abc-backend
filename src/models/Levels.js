@@ -29,9 +29,17 @@ class LevelsModel {
         }
     }
 
-    async findBySeason(id) {
+    async findAllBySeason(id) {
         try {
             return await levels.find({ season_id: id })
+        } catch(error) {
+            return undefined
+        }
+    }
+
+    async findLast() {
+        try {
+            return await levels.findOne().sort({ field: "asc", _id: -1 })
         } catch(error) {
             return undefined
         }

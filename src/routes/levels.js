@@ -7,8 +7,9 @@ export const levelRouter = express.Router()
 levelRouter.post("/", LevelController.create)
 
 levelRouter.get("/", LevelController.findAll)
+levelRouter.get("/last", LevelController.findLast)
 levelRouter.get("/:id", LevelController.findById)
-levelRouter.get("/season/:id", LevelController.findBySeason)
+levelRouter.get("/season/:id", LevelController.findAllBySeason)
 
 levelRouter.put("/:id", LevelController.update)
 

@@ -21,6 +21,10 @@ const levels = new mongoose.Schema({
     type: Number,
     require: true
   },
+  number: {
+    type: Number,
+    require: true
+  },
   season_id: {
     type: mongoose.Types.ObjectId,
     require: true
