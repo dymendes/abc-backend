@@ -29,6 +29,14 @@ class LevelsModel {
         }
     }
 
+    async findBySeason(id) {
+        try {
+            return await levels.find({ season_id: id })
+        } catch(error) {
+            return undefined
+        }
+    }
+
     async update(id, data) {
         try {
             return await levels.findByIdAndUpdate(id, data)

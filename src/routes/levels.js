@@ -8,6 +8,7 @@ levelRouter.post("/", LevelController.create)
 
 levelRouter.get("/", LevelController.findAll)
 levelRouter.get("/:id", LevelController.findById)
+levelRouter.get("/season/:id", LevelController.findBySeason)
 
 levelRouter.put("/:id", LevelController.update)
 

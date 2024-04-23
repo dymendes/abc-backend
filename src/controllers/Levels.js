@@ -45,6 +45,16 @@ class LevelController {
         res.status(200).json({ level, message: "Level successfully searched for ID!" })
     }
 
+    async findBySeason(req, res) {
+        const { id } = req.params
+
+        const levels = await LevelsModel.findBySeason(id)
+
+        if(levels === undefined || levels === null) return res.status(400).json({ message: "This season doesn't exist!" })
+
+        res.status(200).json({ levels, message: "Level successfully searched for season!" })
+    }
+
     async update(req, res) {
         const { id } = req.params
 
