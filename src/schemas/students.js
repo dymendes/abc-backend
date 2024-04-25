@@ -26,6 +26,16 @@ const students = new mongoose.Schema({
     default: Date.now(),
     require: true
   },
+  coins: {
+    type: Number,
+    default: 0,
+    require: true
+  },
+  last_level: {
+    type: Number,
+    default: 0,
+    require: true
+  },
   responsible_id: {
     type: mongoose.Types.ObjectId,
     require: true

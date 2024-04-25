@@ -1,8 +1,10 @@
 import mongoose from "mongoose"
 
 import LevelsSchema from "../schemas/levels.js"
+import studentsSchema from "../schemas/students.js"
 
 const levels = mongoose.model("levels", LevelsSchema)
+const students = mongoose.model("students", studentsSchema)
 
 class LevelsModel {
     async create(data) {
@@ -48,6 +50,14 @@ class LevelsModel {
     async update(id, data) {
         try {
             return await levels.findByIdAndUpdate(id, data)
+        } catch (error) {
+            return undefined
+        }
+    }
+
+    async finish(id, data){
+        try {
+            return await students.findByIdAndUpdate(id, data)
         } catch (error) {
             return undefined
         }

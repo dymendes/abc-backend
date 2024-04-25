@@ -80,7 +80,10 @@ class AuthenticationController {
       lastName: studentFindByEmail.lastName,
       email: studentFindByEmail.email,
       age: studentFindByEmail.age,
-      registration: studentFindByEmail.registration
+      registration: studentFindByEmail.registration,
+      last_level: studentFindByEmail.last_level,
+      coins: studentFindByEmail.coins,
+      responsible_id: studentFindByEmail.responsible_id
     }, process.env.JWT_SECRET, { expiresIn: "24h" })
 
     return res.status(200).json({ token, message: "User successfully authenticated!" })
