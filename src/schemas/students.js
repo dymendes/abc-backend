@@ -36,6 +36,9 @@ const students = new mongoose.Schema({
     default: 0,
     require: true
   },
+  products: [
+    { _id: mongoose.Types.ObjectId }
+  ],
   responsible_id: {
     type: mongoose.Types.ObjectId,
     require: true

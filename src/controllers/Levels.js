@@ -88,15 +88,15 @@ class LevelController {
 
     async finish(req, res) {
         const levelId = req.params.id
-        const student = req.session
+        const session = req.session
 
         const level = await LevelsModel.findById(levelId)
         
         if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
 
-        const coins = student.coins + level.reward
+        const coins = session.coins + level.reward
 
-        await LevelsModel.finish(student.id, { last_level: level.number, coins })
+        await LevelsModel.finish(session.id, { last_level: level.number, coins })
 
         res.status(200).json({ level, message: "Level finished successfully!" })
     }
