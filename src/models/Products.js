@@ -39,9 +39,12 @@ class ProductsModel {
         }
     }
 
-    async buy(id, data) {
+    async buy(studentId, productId, data) {
         try {
-            return await students.findByIdAndUpdate(id, { $push: data })
+            const product = await products.findByIdAndUpdate(productId, data.amountAfterPurchase)
+            const student = await students.findByIdAndUpdate(studentId, { $push: data.product, coins: data.coinsAfterPurchase })
+
+            return { product, student }
         } catch (error) {
             return undefined
         }

@@ -70,7 +70,7 @@ class AuthenticationController {
 
     if(studentFindByEmail === null) return res.status(403).json({ message: "There is already a student with this email!" })
 
-    const studentPasswordCompare = await bcrypt.compare(studentPassword, studentFindByEmail.password)
+    const studentPasswordCompare = bcrypt.compare(studentPassword, studentFindByEmail.password)
 
     if(!studentPasswordCompare) return res.status(403).json({ message: "Incorrect password!" })
 
@@ -81,8 +81,9 @@ class AuthenticationController {
       email: studentFindByEmail.email,
       age: studentFindByEmail.age,
       registration: studentFindByEmail.registration,
-      last_level: studentFindByEmail.last_level,
       coins: studentFindByEmail.coins,
+      last_level: studentFindByEmail.last_level,
+      products: studentFindByEmail.products,
       responsible_id: studentFindByEmail.responsible_id
     }, process.env.JWT_SECRET, { expiresIn: "24h" })
 

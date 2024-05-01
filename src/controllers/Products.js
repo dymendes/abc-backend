@@ -1,4 +1,5 @@
 import ProductsModel from "../models/Products.js"
+import StudentsModel from "../models/Students.js"
 
 import ValidateController from "./Validate.js"
 
@@ -50,19 +51,26 @@ class ProductsController {
     async buy(req, res) {
         const session = req.session
 
-        const id = req.params.id
+        const productId = req.params.id
 
-        const product = await ProductsModel.findById(id)
+        const product = await ProductsModel.findById(productId)
 
         if(product === undefined || product === null) return res.status(400).json({ message: "This product doesn't exist!" })
 
         if(product.amount <= 0) return res.status(400).json({ message: "This product is sold out!" })
 
-        const student = await ProductsModel.buy(session.id, { products: { _id: id } })
+        const student = await StudentsModel.findById(session.id)
 
-        if(student === undefined) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
 
-        res.status(200).json({ student, message: "Student updated successfully!" })
+        const amountAfterPurchase = { amount: product.amount - 1 }
+        const coinsAfterPurchase = student.coins - product.price
+    
+        const productAndStudent = await ProductsModel.buy(student._id, productId, { amountAfterPurchase, product: { products: productId }, coinsAfterPurchase })
+
+        if(productAndStudent === undefined) return res.status(500).json({ message: "Failed to make purchase!" })
+
+        res.status(200).json({ productAndStudent, message: "Product purchased successfully!" })
     }
 
     async delete(req, res) {

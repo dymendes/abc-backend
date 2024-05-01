@@ -1,6 +1,7 @@
 import express from "express"
-import mongoose from "mongoose"
 import dotenv from "dotenv"
+
+import { connection } from "./database/connection.js"
 
 import { authenticationRouter } from "./routes/authentication.js"
 import { studentsRouter } from "./routes/students.js"
@@ -11,7 +12,7 @@ import { productRouter } from "./routes/products.js"
 
 dotenv.config()
 
-mongoose.connect(process.env.DATABASE_HOST).then(() => console.log("Connected to the database!"))
+await connection()
 
 export const app = express()
 

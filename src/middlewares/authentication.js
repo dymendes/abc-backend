@@ -12,7 +12,7 @@ export const authentication = async (req, res, next) => {
         const token = bearer.replace("Bearer ", "")
     
         try {
-            req.session = await jwt.verify(token, process.env.JWT_SECRET)
+            req.session = jwt.verify(token, process.env.JWT_SECRET)
         } catch (error) {
             return res.status(401).json({ message: "Invalid token." })   
         }
