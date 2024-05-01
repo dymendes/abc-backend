@@ -1,5 +1,6 @@
 import LevelsModel from "../models/Levels.js"
 import SeasonsModel from "../models/Seasons.js"
+import StudentsModel from "../models/Students.js"
 
 import ValidateController from "./Validate.js"
 
@@ -15,13 +16,9 @@ class LevelController {
 
         if(season === undefined || season === null) return res.status(400).json({ message: "This season doesn't exist!" })
 
-        let lastLevelNumber = (await LevelsModel.findLast()).number
+        const lastLevel = await LevelsModel.findLast()
 
-        if(lastLevelNumber === undefined || lastLevelNumber === null) {
-            lastLevelNumber = 1
-        } else {
-            lastLevelNumber++
-        }
+        const lastLevelNumber = lastLevel === null ? 1 : lastLevel.number + 1
 
         await LevelsModel.create({ 
             level: {
@@ -94,9 +91,15 @@ class LevelController {
         
         if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
 
-        const coins = session.coins + level.reward
+        const student = await StudentsModel.findById(session.id)
 
-        await LevelsModel.finish(session.id, { last_level: level.number, coins })
+        if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
+
+        const coinsAfterFinishingLevel = student.coins + level.reward
+
+        console.log(coinsAfterFinishingLevel)
+
+        await LevelsModel.finish(student._id, { last_level: level.number, coins: coinsAfterFinishingLevel })
 
         res.status(200).json({ level, message: "Level finished successfully!" })
     }

@@ -63,6 +63,15 @@ class ProductsController {
 
         if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
 
+        let productAlreadyPurchased = null
+
+        student.products.forEach(productId => {
+            String(productId) === String(product._id) 
+                ? productAlreadyPurchased = true : productAlreadyPurchased = false
+        })
+
+        if(productAlreadyPurchased === true) return res.status(400).json({ message: "Product already purchased" })
+
         const amountAfterPurchase = { amount: product.amount - 1 }
         const coinsAfterPurchase = student.coins - product.price
     
