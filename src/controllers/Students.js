@@ -15,7 +15,7 @@ class StudentController {
 
         const student = await StudentsModel.findById(id)
 
-        if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined || student === null) return res.status(404).json({ message: "This student doesn't exist!" })
 
         res.status(200).json({ student, message: "Student successfully searched for ID!" })
     }
@@ -34,7 +34,7 @@ class StudentController {
 
         const student = await StudentsModel.update(id, { firstName, lastName, email, password: hash, age })
         
-        if(student === undefined) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined) return res.status(404).json({ message: "This student doesn't exist!" })
 
         res.status(200).json({ student, message: "Student updated successfully!" })
     }
@@ -44,7 +44,7 @@ class StudentController {
 
         const student = await StudentsModel.delete(id)
 
-        if(student === undefined) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined) return res.status(404).json({ message: "This student doesn't exist!" })
 
         res.status(200).json({ message: "Student deleted successfully!" })
     }

@@ -27,7 +27,7 @@ class ProductsController {
 
         const product = await ProductsModel.findById(id)
 
-        if(product === undefined || product === null) return res.status(400).json({ message: "This product doesn't exist!" })
+        if(product === undefined || product === null) return res.status(404).json({ message: "This product doesn't exist!" })
 
         res.status(200).json({ product, message: "Product successfully searched for ID!" })
     }
@@ -43,7 +43,7 @@ class ProductsController {
 
         const product = await ProductsModel.update(id, { name, description, price, amount })
         
-        if(product === undefined) return res.status(400).json({ message: "This product doesn't exist!" })
+        if(product === undefined) return res.status(404).json({ message: "This product doesn't exist!" })
 
         res.status(200).json({ product, message: "Product updated successfully!" })
     }
@@ -55,13 +55,13 @@ class ProductsController {
 
         const product = await ProductsModel.findById(productId)
 
-        if(product === undefined || product === null) return res.status(400).json({ message: "This product doesn't exist!" })
+        if(product === undefined || product === null) return res.status(404).json({ message: "This product doesn't exist!" })
 
-        if(product.amount <= 0) return res.status(400).json({ message: "This product is sold out!" })
+        if(product.amount <= 0) return res.status(410).json({ message: "This product is sold out!" })
 
         const student = await StudentsModel.findById(session.id)
 
-        if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined || student === null) return res.status(404).json({ message: "This student doesn't exist!" })
 
         let productAlreadyPurchased = null
 
@@ -70,7 +70,7 @@ class ProductsController {
                 ? productAlreadyPurchased = true : productAlreadyPurchased = false
         })
 
-        if(productAlreadyPurchased === true) return res.status(400).json({ message: "Product already purchased" })
+        if(productAlreadyPurchased === true) return res.status(403).json({ message: "This student has already purchased this product!" })
 
         const amountAfterPurchase = { amount: product.amount - 1 }
         const coinsAfterPurchase = student.coins - product.price
@@ -87,7 +87,7 @@ class ProductsController {
 
         const product = await ProductsModel.delete(id)
 
-        if(product === undefined) return res.status(400).json({ message: "This product doesn't exist!" })
+        if(product === undefined) return res.status(404).json({ message: "This product doesn't exist!" })
 
         res.status(200).json({ message: "Product deleted successfully!" })
     }

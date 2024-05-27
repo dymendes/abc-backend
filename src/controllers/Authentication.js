@@ -42,11 +42,11 @@ class AuthenticationController {
       return res.status(400).json({ message: "Responsible data is invalid!" })
     }
 
-    if(studentFindByEmail !== null) return res.status(400).json({ message: "There is already a student with this email!" })
+    if(studentFindByEmail !== null) return res.status(409).json({ message: "There is already a student with this email!" })
 
     if(responsibleExistsCheck === "true") {
       if(responsibleFindByEmail === null) {
-        return res.status(400).json({ message: "This person is not registered!" })
+        return res.status(409).json({ message: "This person is not registered!" })
       } else {
         student.responsible_id = responsibleFindByEmail._id
 
@@ -56,7 +56,7 @@ class AuthenticationController {
       if(responsibleFindByEmail === null) {
         await AuthenticationModel.signup({ student, responsible }, responsibleExistsCheck )
       } else {
-        return res.status(400).json({ message: "This person is already registered!" })
+        return res.status(409).json({ message: "This person is already registered!" })
       }
     }
 
@@ -68,11 +68,11 @@ class AuthenticationController {
 
     const studentFindByEmail = await StudentsModel.findByEmail(studentEmail)
 
-    if(studentFindByEmail === null) return res.status(403).json({ message: "There is already a student with this email!" })
+    if(studentFindByEmail === null) return res.status(404).json({ message: "There is already a student with this email!" })
 
     const studentPasswordCompare = bcrypt.compare(studentPassword, studentFindByEmail.password)
 
-    if(!studentPasswordCompare) return res.status(403).json({ message: "Incorrect password!" })
+    if(!studentPasswordCompare) return res.status(400).json({ message: "Incorrect password!" })
 
     const token = jwt.sign({ 
       id: studentFindByEmail._id,

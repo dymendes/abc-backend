@@ -14,7 +14,7 @@ class LevelController {
 
         const season = await SeasonsModel.findById(season_id)
 
-        if(season === undefined || season === null) return res.status(400).json({ message: "This season doesn't exist!" })
+        if(season === undefined || season === null) return res.status(404).json({ message: "This season doesn't exist!" })
 
         const lastLevel = await LevelsModel.findLast()
 
@@ -46,7 +46,7 @@ class LevelController {
 
         const level = await LevelsModel.findById(id)
 
-        if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
+        if(level === undefined || level === null) return res.status(404).json({ message: "This level doesn't exist!" })
 
         res.status(200).json({ level, message: "Level successfully searched for ID!" })
     }
@@ -56,7 +56,7 @@ class LevelController {
 
         const levels = await LevelsModel.findAllBySeason(id)
 
-        if(levels === undefined || levels === null) return res.status(400).json({ message: "This season doesn't exist!" })
+        if(levels === undefined || levels === null) return res.status(404).json({ message: "This season doesn't exist!" })
 
         res.status(200).json({ levels, message: "Level successfully searched for season!" })
     }
@@ -78,7 +78,7 @@ class LevelController {
 
         const level = await LevelsModel.update(id, { title, description, difficulty, minigame, reward })
         
-        if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
+        if(level === undefined || level === null) return res.status(404).json({ message: "This level doesn't exist!" })
 
         res.status(200).json({ level, message: "Level updated successfully!" })
     }
@@ -89,15 +89,13 @@ class LevelController {
 
         const level = await LevelsModel.findById(levelId)
         
-        if(level === undefined || level === null) return res.status(400).json({ message: "This level doesn't exist!" })
+        if(level === undefined || level === null) return res.status(404).json({ message: "This level doesn't exist!" })
 
         const student = await StudentsModel.findById(session.id)
 
-        if(student === undefined || student === null) return res.status(400).json({ message: "This student doesn't exist!" })
+        if(student === undefined || student === null) return res.status(404).json({ message: "This student doesn't exist!" })
 
         const coinsAfterFinishingLevel = student.coins + level.reward
-
-        console.log(coinsAfterFinishingLevel)
 
         await LevelsModel.finish(student._id, { last_level: level.number, coins: coinsAfterFinishingLevel })
 
@@ -109,7 +107,7 @@ class LevelController {
 
         const level = await LevelsModel.delete(id)
 
-        if(level === undefined) return res.status(400).json({ message: "This level doesn't exist!" })
+        if(level === undefined) return res.status(404).json({ message: "This level doesn't exist!" })
 
         res.status(200).json({ message: "Level deleted successfully!" })
     }

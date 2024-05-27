@@ -14,7 +14,7 @@ class ResponsibleController {
 
         const responsible = await ResponsiblesModel.findById(id)
 
-        if(responsible === undefined || responsible === null) return res.status(400).json({ message: "This responsible doesn't exist!" })
+        if(responsible === undefined || responsible === null) return res.status(404).json({ message: "This responsible doesn't exist!" })
 
         res.status(200).json({ responsible, message: "Responsible successfully searched for ID!" })
     }
@@ -30,7 +30,7 @@ class ResponsibleController {
 
         const responsible = await ResponsiblesModel.update(id, { firstName, lastName, email, age })
         
-        if(responsible === undefined) return res.status(400).json({ message: "This responsible doesn't exist!" })
+        if(responsible === undefined) return res.status(404).json({ message: "This responsible doesn't exist!" })
 
         res.status(200).json({ responsible, message: "Responsible updated successfully!" })
     }
@@ -40,7 +40,7 @@ class ResponsibleController {
 
         const responsible = await ResponsiblesModel.delete(id)
 
-        if(responsible === undefined) return res.status(400).json({ message: "This responsible doesn't exist!" })
+        if(responsible === undefined) return res.status(404).json({ message: "This responsible doesn't exist!" })
 
         res.status(200).json({ message: "Responsible deleted successfully!" })
     }
