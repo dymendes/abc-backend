@@ -63,6 +63,8 @@ class ProductsController {
 
         if(student === undefined || student === null) return res.status(404).json({ message: "This student doesn't exist!" })
 
+        if(student.coins < product.price) return res.status(410).json({ message: "The student does not have enough coins" })
+
         let productAlreadyPurchased = null
 
         student.products.forEach(productId => {
